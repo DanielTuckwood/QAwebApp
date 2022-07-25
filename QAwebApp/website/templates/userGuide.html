@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}User Guide{% endblock %}'
+
+<!-- User Guide content -->
+{% block content %}
+<h1>Welcome to the User Guide</h1>
+<br>
+<!-- Introduction to user guide -->
+<h2>Introduction</h2>
+<p>Hello, and welcome to this team based mangement application. This tool is here to help you as an application support engineer, 
+    remain structured, organised and in control of your work load. The Metastorm application can at times be difficult to keep track of, 
+    with thousands of Sponsor cases processed daily. Although you have ServiceNow to identify each individual ticket you progress, 
+    this application will allow you to record and document your progress on a front-end case by case basis.
+</p>
+<br>
+<!-- Home page instructions -->
+<h2>Home Page</h2>
+<p>text</p>
+<br>
+
+<!-- Notes page instructions -->
+<h2>Notes Page</h2>
+<p>The notes page acts as a bulletin board for reminders & messages about cases that you may need to store on a day-to-day basis. 
+    It features a table of notes you have added, an add button, and delete buttons for each individual note.
+</p>
+
+<h4>Add Note</h4>
+<p>To add a note to your notes board, first enter your desired text into the text box displayed below.</p>
+<img src="../static/textBox.jpg" alt="Image of Text Box" style='border:thin solid black'/>
+<p>Secondly click the 'Add Note' button displayed below, to add the text to the board.</p>
+<img src="../static/addNote.jpg" alt="Image of Add Note Button" style='border:thin solid black'/>
+<br></br>
+
+<h4>Delete Note</h4>
+<p> Once you have a note on the board and you want to remove it, (example below).</p>
+<img src="../static/testNote.jpg" alt="Image of Test Note Button" style='border:thin solid black'/>
+<p>Then click on the 'X' button displayed below to permantely remove the note from your board.</p>
+<img src="../static/deleteButton.jpg" alt="Image of Delete Button" style='border:thin solid black'/>
+<br></br>
+{% endblock %}

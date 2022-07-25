@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <!-- Bootstrap framework paths -->
+
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <link
@@ -9,39 +12,68 @@
                 integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
                 rel="stylesheet"
         />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+        crossorigin="anonymous">
         <link
                 crossorigin="anonymous"
                 href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
                 rel="stylesheet"
         />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous">
+        </script>
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
-        `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <!-- navbar -->
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
-                <div class="navbar-nav">
+                <div class="navbar-nav me-auto">
+                    {% if user.is_authenticated %} <!--Logged in users only -->
                     <a class="nav-item nav-link" id="home" href="/">Home</a>
-                    <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                    <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-                    <a class="nav-item nav-link" id="logOut" href="/logout">Log Out</a>
+                    <a class="nav-iten nav-link" id="note" href="/notes">Notes</a>
+                    <a class="nav-item nav-link" id="userGuide" href="/userGuide">User Guide</a>
+                    {% endif %}                
                 </div>
+            </div>
+            <div class="navbar-nav ms-auto">
+                {% if user.is_authenticated %} <!--Logged in users only -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="Account" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>     
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" id="logOut" href="/logout">Log Out</a>
+                    </ul>    
+                </li>   
+                {% else %} <!-- Unauthenticated users -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="Account" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>     
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" id="login" href="/login">Login</a></li>
+                        <li><a class="dropdown-item" id="sign-up" href="/sign-up">Register</a></li>
+                    </ul>    
+                </li>    
+                {% endif %} 
             </div>
         </nav>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    {% if category == 'error' %}
+                    {% if category == 'error' %} <!-- error message config-->
                     <div class="alert alert-danger alter-dismissable fade show" role="alert">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    {% else %}
+                    {% else %} <!-- success message config-->
                     <div class="alert alert-success alter-dismissable fade show" role="alert">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert">
@@ -73,8 +105,8 @@
                 src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         ></script>
         <script
-                src="{{ url_for('static', filename='index.js') }}"
-                type="text/javascript"
+            type="text/javascript"
+            src="{{ url_for('static', filename='index.js') }}"
         ></script>
     </body>
 </html>
