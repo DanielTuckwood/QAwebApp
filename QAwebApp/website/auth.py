@@ -53,9 +53,13 @@ def sign_up():
         password2 = request.form.get('password2')
         admin = request.form.get('admin')
 
-        user = User.query.filter_by(email=email).first()
+        if request.form.get('admin') == True:
+            admin = True
+        else:
+            admin = False 
 
         #Validation
+        user = User.query.filter_by(email=email).first()
         if user:
             flash('Email address already exists.', category='error')
         elif len(email) < 4:
@@ -66,8 +70,7 @@ def sign_up():
             flash('Passwords do not match.', category='error')
         elif len(password1) < 8:
             flash('Password must be greater than 7 characters.', category='error')
-        else:
-
+        else:     
             #Create new User
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'), admin=admin)
 

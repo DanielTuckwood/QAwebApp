@@ -2,8 +2,15 @@
 
 <!-- User Guide content -->
 {% block content %}
-<h1>Welcome to the User Guide</h1>
+<h1>User Guide</h1>
 <br>
+
+<li>
+    {% for user in user.users %}
+        {{user.admin}}
+    {% endfor %}    
+</li>
+
 <!-- Introduction to user guide -->
 <h2>Introduction</h2>
 <p>Hello, and welcome to this team based mangement application. This tool is here to help you as an application support engineer, 
@@ -11,11 +18,30 @@
     with thousands of Sponsor cases processed daily. Although you have ServiceNow to identify each individual ticket you progress, 
     this application will allow you to record and document your progress on a front-end case by case basis.
 </p>
-<br>
+<strong>-----------------------------------------------------------------------------------------------</strong>
+
 <!-- Home page instructions -->
 <h2>Home Page</h2>
-<p>text</p>
-<br>
+<p>The home page acts as a workflow board for the team, allowing the storage of information about on going cases that are being investigated.
+    It features a table of cases you have added, a form to add new cases, with and add button, along with edit & delete buttons
+    for each individual case.
+</p>
+
+<h4>Add Case</h4>
+<p>To add a case to the cases, first complete the fields displayed in the images. Then click the 'Add Case' button.</p>
+<img src="../static/AddCase.JPG" alt="Image of Case Form" style='border:thin solid black'/>
+<br></br>
+
+<h4>Edit Case Note</h4>
+<p>To edit a case's notes, enter the desired text into the button text box displayed below. Then click the 'Update Notes' button.</p>
+<img src="../static/EditCase.JPG" alt="Image of Edit Case" style='border:thin solid black'/>
+<br></br>
+
+<h4>Delete Case</h4>
+<p>To delete a case, click the 'Delete' button displayed below.</p>
+<img src="../static/DeleteCase.JPG" alt="Image of Delete Case" style='border:thin solid black'/>
+<br></br>
+<strong>-----------------------------------------------------------------------------------------------</strong>
 
 <!-- Notes page instructions -->
 <h2>Notes Page</h2>
@@ -30,10 +56,15 @@
 <img src="../static/addNote.jpg" alt="Image of Add Note Button" style='border:thin solid black'/>
 <br></br>
 
+<h4>Edit Note</h4>
+<p>To edit a note, enter the desired text into the button text box displayed below. Then click the 'Update Note' button.</p>
+<img src="../static/updateNote.JPG" alt="Image of Edit Case" style='border:thin solid black'/>
+<br></br>
+
 <h4>Delete Note</h4>
 <p> Once you have a note on the board and you want to remove it, (example below).</p>
 <img src="../static/testNote.jpg" alt="Image of Test Note Button" style='border:thin solid black'/>
 <p>Then click on the 'X' button displayed below to permantely remove the note from your board.</p>
-<img src="../static/deleteButton.jpg" alt="Image of Delete Button" style='border:thin solid black'/>
+<img src="../static/deleteNote.jpg" alt="Image of Delete Button" style='border:thin solid black'/>
 <br></br>
 {% endblock %}

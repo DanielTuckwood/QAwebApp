@@ -8,12 +8,16 @@
     {% for note in user.notes %}
     <li class="list-group-item">
       {{ note.txt }}
-      <a class="btn btn-danger float-right mr-2" href="/delete/{{ note.id }}">
+      {{ note.date }}
+      <a class="btn btn-danger float-right mr-2" href="/deleteNote/{{ note.id }}">
         <span aria-hidden="true">Delete</span>
       </a> 
-      <a class="btn btn-success float-right mr-2" href="/update/{{ note.id }}">
+      <form method="POST" class="btn btn-success float-right mr-2" href="/updateNote/{{ note.id }}">
         <span aria-hidden="true">Edit</span>
-      </a>            
+        <input type="hidden" value="{{ note.txt }}" name="oldNote">
+        <input type="text" value="{{ note.txt }}" name="newNote">
+        <button type="submit" class="btn btn-primary">Update Note</button>
+      </form>            
     </li>
     {% endfor %}
   </ul>

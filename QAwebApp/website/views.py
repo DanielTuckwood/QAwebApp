@@ -1,19 +1,35 @@
-from webbrowser import get
-from flask import Blueprint, abort, redirect, render_template, flash, request, url_for
+from flask import Blueprint, redirect, render_template, flash, request, url_for
 from flask_login import login_required, current_user
 from . import db
-from . models import Note
-from flask_wtf import FlaskForm
-from wtforms import SubmitField
-from wtforms.validators import DataRequired
+from . models import Case, Note, User
 
 views = Blueprint('views', __name__)
 
-
 #Home page view
-@views.route('/')
+@views.route('/', methods=['GET','POST'])
 @login_required
 def home():
+    if request.method == 'POST':
+
+        #Getters
+        sponsorURN = request.form.get('sponsorURN')
+        caseType = request.form.get('caseType')
+        txt = request.form.get('txt')
+
+       #Validation
+        if len(sponsorURN) < 6:
+            flash('Sponsor URN is too short!', category='error')
+        elif len(caseType) < 10:
+            flash('Case Type is too short!', category='error')
+        elif len(txt) < 1:
+            flash('Case notes too short! If there are no notes, enter - ', category='error')    
+        else:
+            #Create new case
+            new_case = Case(sponsorURN=sponsorURN, case_type=caseType, txt=txt, user_id=current_user.id)
+            db.session.add(new_case)
+            db.session.commit()
+            flash('Case added.', category='success')
+
     return render_template("home.html", user=current_user)    
 
 #Notes page view
@@ -43,24 +59,38 @@ def note():
 def userGuide():
     return render_template("userGuide.html", user=current_user)  
 
-#Edit note view
-@views.route('/update<int:id>', methods=['GET','POST'])
-@login_required      
-def update(id): 
-    if request.method == 'POST':
-        #Getter
-        note_to_update = Note.query.get_or_404(id)
+#Admin view
+@views.route('/admin/<int:id>')
+@login_required
+def checkAdmin(id):
 
-        if note.author != current_user:
-            abort(403)
+    #Getter
+    adminStatus = User.query.get_or_404(id)
 
-        return render_template("update.html", user=current_user)
-
+    #Check admin status
+    if adminStatus.admin == True:
+        return render_template("admin.html", user=current_user)
+    else:
+        flash("Administrator rights required!", category="error")
+        return redirect(url_for('views.home'))        
         
+#Edit note view
+@views.route('/updateNote/<int:id>', methods=['GET','POST'])
+@login_required      
+def update(): 
+
+    #Getter
+    newNote = request.form.get("newNote")
+    oldNote = request.form.get("oldNote")
+    note_to_update = Note.query.filter_by(txt=oldNote).first()
+    note_to_update.txt = newNote
+    db.session.commit()
+    return redirect("/notes")
+
 #Delete note view
-@views.route('/delete/<int:id>')   
+@views.route('/deleteNote/<int:id>')   
 @login_required 
-def delete(id):
+def deleteNote(id):
 
     #Getter
     note_to_delete = Note.query.get_or_404(id)
@@ -76,3 +106,23 @@ def delete(id):
     except:
         flash('Error deleting!')
         return redirect(url_for('views.note'))
+
+#Delete case view
+@views.route('/deleteCase/<int:id>')   
+@login_required 
+def deleteCase(id):
+
+    #Getter
+    case_to_delete = Case.query.get_or_404(id)
+
+    #Attempt to delete
+    try:
+        db.session.delete(case_to_delete)
+        db.session.commit()        
+        flash('Case deleted')
+        return redirect(url_for('views.home'))
+
+    #Catch error    
+    except:
+        flash('Error deleting!')
+        return redirect(url_for('views.hpme'))
