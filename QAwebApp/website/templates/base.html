@@ -3,7 +3,6 @@
     <head>
 
         <!-- Bootstrap framework paths -->
-
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <link
@@ -24,12 +23,11 @@
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous">
         </script>
-        <title>{% block title %}Home{% endblock %}</title>
+        <title>{% block title %}Cases{% endblock %}</title>
     </head>
     <body>
 
         <!-- navbar -->
-
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
@@ -37,14 +35,19 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <div class="navbar-nav me-auto">
                     {% if user.is_authenticated %} <!--Logged in users only -->
-                    <a class="nav-item nav-link" id="home" href="/">Home</a>
-                    <a class="nav-iten nav-link" id="note" href="/notes">Notes</a>
+                    <a class="nav-item nav-link" id="home" href="/">Cases</a>
+                    <a class="nav-item nav-link" id="note" href="/notes">Notes</a>
                     <a class="nav-item nav-link" id="userGuide" href="/userGuide">User Guide</a>
+                    <a class="nav-item nav-link" id="admin" href="/admin/{{ user.id }}">Admin</a>
+                        <!--{% if user.admin == true %}  If user is admin -->
+                    
+                        <!-- {% endif %} -->
                     {% endif %}                
                 </div>
             </div>
             <div class="navbar-nav ms-auto">
                 {% if user.is_authenticated %} <!--Logged in users only -->
+                <a class="navbar-text" id="userName">Hello, {{ user.first_name }} &nbsp;</a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="Account" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>     
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

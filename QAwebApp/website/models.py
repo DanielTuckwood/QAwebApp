@@ -1,4 +1,3 @@
-from enum import unique
 from flask_login import UserMixin
 from datetime import datetime
 from . import db
@@ -28,4 +27,3 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     cases = db.relationship('Case')
     notes = db.relationship('Note')
-

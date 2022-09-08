@@ -2,5 +2,65 @@
 
 <!-- Home Page content -->
 {% block content %}
-<h1>Home Page</h1>
+  <h1 align="center">Ongoing Cases</h1>
+  <ul class="list-group list-group-flush" id="cases">
+    {% for case in user.cases %}
+    <li class="list-group-item">
+        <strong for="caseId">Case ID</strong>
+        {{ case.id }}
+        <br>
+        <strong for="username">Username</strong>
+        {{ user.first_name }}
+        <br>
+        <strong for="sponsorURN">URN</strong>
+        {{ case.sponsorURN }}
+        <br>
+        <strong for="caseType">Case Type</strong>
+        {{ case.case_type }}
+        <br>
+        <strong for="txt">Case Notes</strong>
+        {{ case.txt }}
+        <br>
+        <strong for="date">Date/Time</strong>
+        {{ case.date }}               
+    </li>
+    <!--
+    <form method="POST" class="btn btn-success float-right mr-2" href="/updateCase/{{ case.id }}">
+        <span aria-hidden="true">Edit</span>
+
+        <input type="hidden" value="{{ case.txt }}" name="oldNote">
+        <input type="text" value="{{ case.txt }}" name="newNote">
+        <button type="submit" class="btn btn-primary">Update Case</button>
+            
+    </form>
+  --> 
+    <a class="btn btn-success float-right mr-2" href="/updateCase/{{ case.id }}">
+      <span aria-hidden="true">Edit</span>
+    </a>
+    <a class="btn btn-danger float-right mr-2" href="/deleteCase/{{ case.id }}">
+        <span aria-hidden="true">Delete</span>
+    </a>
+    {% endfor %}
+  </ul>
+  <br>
+  <h1 align="center">Add Case</h1>
+  <form method="POST">
+    <div class="form-group">
+        <label for="sponsorURN">Sponsor URN</label>
+        <input type="sponsorURN" class="form-control" name="sponsorURN" id="sponsorURN" placeholder="Sponsor URN">
+    </div>
+    <div class="form-group">
+        <label for="caseType">Case Type</label>
+        <input type="text" class="form-control" name="caseType" id="caseType" placeholder="Case Type">
+    </div>
+    <div class="form-group">
+        <label for="txt">Case Notes</label>
+        <input type="text" class="form-control" name="txt" id="txt" placeholder="Notes">
+    </div>
+    <br />
+    <div align="center">
+      <button type="submit" class="btn btn-primary">Add Case</button>
+    </div>
+  </form>
+  <br></br>
 {% endblock %}
