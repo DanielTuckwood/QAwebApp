@@ -7,20 +7,22 @@
   <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item">
+      <strong for="txt">Note:</strong>
       {{ note.txt }}
-      {{ note.date }}
-      <a class="btn btn-danger float-right mr-2" href="/deleteNote/{{ note.id }}">
-        <span aria-hidden="true">Delete</span>
-      </a> 
-      <form method="POST" class="btn btn-success float-right mr-2" href="/updateNote/{{ note.id }}">
-        <span aria-hidden="true">Edit</span>
-        <input type="hidden" value="{{ note.txt }}" name="oldNote">
-        <input type="text" value="{{ note.txt }}" name="newNote">
-        <button type="submit" class="btn btn-primary">Update Note</button>
-      </form>            
+      <br>
+      <strong for="date">Date:</strong>
+      {{ note.date }}          
     </li>
+    <a class="btn btn-success float-right mr-2" href="/updateNote/{{ note.id }}">
+      <span aria-hidden="true">Edit</span>
+    </a>
+    <a class="btn btn-danger float-right mr-2" href="/deleteNote/{{ note.id }}">
+        <span aria-hidden="true">Delete</span>
+    </a> 
+    <br>
     {% endfor %}
   </ul>
+  <h1 align="center">Add Note</h1>
   <form method="POST">
     <textarea name="note" id="note" class="form-control"></textarea>
     <br />

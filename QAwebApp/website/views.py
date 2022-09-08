@@ -74,10 +74,10 @@ def checkAdmin(id):
         flash("Administrator rights required!", category="error")
         return redirect(url_for('views.home'))        
         
-#Edit note view
+#Edit case view
 @views.route('/updateCase/<int:id>', methods=['GET','POST'])
 @login_required      
-def update(id): 
+def updateCase(id): 
 
     case_to_update = Case.query.filter_by(id=id).first()
     if request.method == 'POST':
@@ -94,8 +94,31 @@ def update(id):
         db.session.add(case_to_update)
         db.session.commit()
         flash('Case updated.', category='success') 
+        return redirect(url_for('views.home')) 
 
-    return render_template("update.html", user=current_user) 
+    return render_template("updateCase.html", user=current_user) 
+
+#Edit note view
+@views.route('/updateNote/<int:id>', methods=['GET','POST'])
+@login_required      
+def updateNote(id): 
+
+    note_to_update = Note.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        if note_to_update:
+            db.session.delete(note_to_update)
+            db.session.commit()
+        #Getters
+        txt = request.form.get('txt')   
+
+        #Create new case
+        note_to_update = Note( txt=txt, user_id=current_user.id)
+        db.session.add(note_to_update)
+        db.session.commit()
+        flash('Note updated.', category='success') 
+        return redirect(url_for('views.note')) 
+
+    return render_template("updateNote.html", user=current_user)
 
 #Delete note view
 @views.route('/deleteNote/<int:id>')   
@@ -135,4 +158,4 @@ def deleteCase(id):
     #Catch error    
     except:
         flash('Error deleting!')
-        return redirect(url_for('views.hpme'))
+        return redirect(url_for('views.home'))

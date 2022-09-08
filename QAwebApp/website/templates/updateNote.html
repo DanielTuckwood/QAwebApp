@@ -1,0 +1,19 @@
+{% extends "base.html" %} 
+
+{% block title %} Update {% endblock %}
+ 
+{% block content %}
+{% for note in user.notes %}
+<h1 align="center">Update Case</h1>
+<form method="POST">
+  <div class="form-group">
+      <label for="txt">Note</label>
+      <input type="text" class="form-control" name="txt" id="txt" placeholder= "{{ note.txt }}" >
+  </div>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Edit Note</button>
+  </div>
+</form>
+{% endfor %}
+{% endblock %}
