@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+
+{% block title %} Update {% endblock %}
+ 
+{% block content %}
+{% for case in user.cases %}
+<h1 align="center">Update Case</h1>
+<form method="POST">
+  <div class="form-group">
+      <label for="sponsorURN">Sponsor URN</label>
+      <input type="sponsorURN" class="form-control" name="sponsorURN" id="sponsorURN" placeholder= "{{ case.sponsorURN }}" >
+  </div>
+  <div class="form-group">
+      <label for="caseType">Case Type</label>
+      <input type="text" class="form-control" name="caseType" id="caseType" placeholder= "{{ case.case_type }}" >
+  </div>
+  <div class="form-group">
+      <label for="txt">Case Notes</label>
+      <input type="text" class="form-control" name="txt" id="txt" placeholder= "{{ case.txt }}" >
+  </div>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Edit Case</button>
+  </div>
+</form>
+{% endfor %}
+{% endblock %}

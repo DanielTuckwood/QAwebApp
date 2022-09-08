@@ -6,34 +6,21 @@
   <ul class="list-group list-group-flush" id="cases">
     {% for case in user.cases %}
     <li class="list-group-item">
-        <strong for="caseId">Case ID</strong>
-        {{ case.id }}
-        <br>
-        <strong for="username">Username</strong>
+        <strong for="username">Username:</strong>
         {{ user.first_name }}
         <br>
-        <strong for="sponsorURN">URN</strong>
+        <strong for="sponsorURN">URN:</strong>
         {{ case.sponsorURN }}
         <br>
-        <strong for="caseType">Case Type</strong>
+        <strong for="caseType">Case Type:</strong>
         {{ case.case_type }}
         <br>
-        <strong for="txt">Case Notes</strong>
+        <strong for="txt">Case Notes:</strong>
         {{ case.txt }}
         <br>
-        <strong for="date">Date/Time</strong>
+        <strong for="date">Date/Time:</strong>
         {{ case.date }}               
     </li>
-    <!--
-    <form method="POST" class="btn btn-success float-right mr-2" href="/updateCase/{{ case.id }}">
-        <span aria-hidden="true">Edit</span>
-
-        <input type="hidden" value="{{ case.txt }}" name="oldNote">
-        <input type="text" value="{{ case.txt }}" name="newNote">
-        <button type="submit" class="btn btn-primary">Update Case</button>
-            
-    </form>
-  --> 
     <a class="btn btn-success float-right mr-2" href="/updateCase/{{ case.id }}">
       <span aria-hidden="true">Edit</span>
     </a>
