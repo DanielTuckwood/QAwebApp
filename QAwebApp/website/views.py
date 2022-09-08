@@ -75,17 +75,27 @@ def checkAdmin(id):
         return redirect(url_for('views.home'))        
         
 #Edit note view
-@views.route('/updateNote/<int:id>', methods=['GET','POST'])
+@views.route('/updateCase/<int:id>', methods=['GET','POST'])
 @login_required      
-def update(): 
+def update(id): 
 
-    #Getter
-    newNote = request.form.get("newNote")
-    oldNote = request.form.get("oldNote")
-    note_to_update = Note.query.filter_by(txt=oldNote).first()
-    note_to_update.txt = newNote
-    db.session.commit()
-    return redirect("/notes")
+    case_to_update = Case.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        if case_to_update:
+            db.session.delete(case_to_update)
+            db.session.commit()
+        #Getters
+        sponsorURN = request.form.get('sponsorURN')
+        caseType = request.form.get('caseType')
+        txt = request.form.get('txt')   
+
+        #Create new case
+        case_to_update = Case(sponsorURN=sponsorURN, case_type=caseType, txt=txt, user_id=current_user.id)
+        db.session.add(case_to_update)
+        db.session.commit()
+        flash('Case updated.', category='success') 
+
+    return render_template("update.html", user=current_user) 
 
 #Delete note view
 @views.route('/deleteNote/<int:id>')   

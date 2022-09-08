@@ -24,12 +24,19 @@
         <strong for="date">Date/Time</strong>
         {{ case.date }}               
     </li>
+    <!--
     <form method="POST" class="btn btn-success float-right mr-2" href="/updateCase/{{ case.id }}">
         <span aria-hidden="true">Edit</span>
+
         <input type="hidden" value="{{ case.txt }}" name="oldNote">
         <input type="text" value="{{ case.txt }}" name="newNote">
-        <button type="submit" class="btn btn-primary">Update Notes</button>
-    </form> 
+        <button type="submit" class="btn btn-primary">Update Case</button>
+            
+    </form>
+  --> 
+    <a class="btn btn-success float-right mr-2" href="/updateCase/{{ case.id }}">
+      <span aria-hidden="true">Edit</span>
+    </a>
     <a class="btn btn-danger float-right mr-2" href="/deleteCase/{{ case.id }}">
         <span aria-hidden="true">Delete</span>
     </a>
